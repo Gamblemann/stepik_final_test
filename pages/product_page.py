@@ -18,5 +18,5 @@ class ProductPage(BasePage):
         price = self.browser.find_element(*ProductPageLocator.PRICE).text
         message_price = self.browser.find_element(*ProductPageLocator.MESSAGE_PRICE).text
         assert self.is_element_present(*ProductPageLocator.MESSAGE_ADD_TO_BASKET), "Message not found"
-        assert product_name in message_product_name, f"Expected '{product_name}' to be in message: '{message_product_name}'"
+        assert product_name == message_product_name, f"Expected '{product_name}' to be in message: '{message_product_name}'"
         assert price in message_price, f"Expected '{price}' to be in message: '{message_price}'"
