@@ -6,19 +6,27 @@ import math
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from stepik_final_test.pages.locators import BasePageLocators
+
+
 class BasePage():
+
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK_INVALID)
+        link.click()
+
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
         #self.browser.implicitly_wait(10)
-    def open(self):
-        self.browser.get(self.url)
+
     def is_element_present(self, by, locator):
         try:
             self.browser.find_element(by, locator)
         except (NoSuchElementException):
             return False
         return True
+
     def is_not_element_present(self, by, locator, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((by, locator)))
@@ -35,6 +43,9 @@ class BasePage():
 
         return True
 
+    def open(self):
+        self.browser.get(self.url)
+
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
@@ -48,3 +59,6 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
