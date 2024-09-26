@@ -6,10 +6,14 @@ import math
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from stepik_final_test.pages.locators import BasePageLocators
+from stepik_final_test.pages.locators import BasePageLocators, MainPageLocators, BasketPageLocators
 
 
 class BasePage():
+
+    def go_to_basket_page(self):
+        link = self.browser.find_element(*MainPageLocators.BASKET_LINK)
+        link.click()
 
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK_INVALID)

@@ -9,6 +9,7 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocator.ADD_TO_BASKET), "Button is not presented"
         button_add = self.browser.find_element(*ProductPageLocator.ADD_TO_BASKET)
         button_add.click()
+
     def should_be_messages(self):
         WebDriverWait(self.browser, 20).until(
             EC.visibility_of_element_located(ProductPageLocator.MESSAGE_ADD_TO_BASKET)
@@ -20,7 +21,9 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocator.MESSAGE_ADD_TO_BASKET), "Message not found"
         assert product_name == message_product_name, f"Expected '{product_name}' to be in message: '{message_product_name}'"
         assert price in message_price, f"Expected '{price}' to be in message: '{message_price}'"
+
     def should_not_be_message_of_success(self):
         assert self.is_not_element_present(*ProductPageLocator.MESSAGE_ADD_TO_BASKET), "Message found"
+
     def should_not_be_disappeared(self):
         assert self.is_disappeared(*ProductPageLocator.MESSAGE_ADD_TO_BASKET), "Message disappeared"
