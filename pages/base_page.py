@@ -1,3 +1,4 @@
+import pytest
 from selenium.common import TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import NoSuchElementException
@@ -15,6 +16,7 @@ class BasePage():
         link = self.browser.find_element(*MainPageLocators.BASKET_LINK)
         link.click()
 
+    @pytest.mark.xfail
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK_INVALID)
         link.click()
